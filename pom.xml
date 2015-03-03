@@ -13,8 +13,6 @@
         <encoding>UTF-8</encoding>
         <scala-main.version>2.11</scala-main.version>
         <scala.version>${scala-main.version}.5</scala.version>
-        <spring.version>4.1.4.RELEASE</spring.version>
-        <junit.version>4.12</junit.version>
         <scalatest.version>2.2.4</scalatest.version>
     </properties>
     <prerequisites>
@@ -56,12 +54,6 @@
             <version>1.7.10</version>
         </dependency>
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest_${scala-main.version}</artifactId>
@@ -127,21 +119,33 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.2</version>
             </plugin>
+            <!-- disable surefire -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18.1</version>
-                <configuration>
-                    <useFile>false</useFile>
-                    <disableXmlReport>true</disableXmlReport>
-                    <!-- If you have classpath issue like NoDefClassError,... -->
-                    <!-- useManifestOnlyJar>false</useManifestOnlyJar -->
-                    <includes>
-                        <include>**/*Test.*</include>
-                        <include>**/*Suite.*</include>
-                    </includes>
-                </configuration>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>2.7</version>
+              <configuration>
+                <skipTests>true</skipTests>
+              </configuration>
             </plugin>
-        </plugins>
-    </build>
-</project>
+            <!-- enable scalatest -->
+            <plugin>
+              <groupId>org.scalatest</groupId>
+              <artifactId>scalatest-maven-plugin</artifactId>
+              <version>1.0</version>
+              <configuration>
+                <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                <junitxml>.</junitxml>
+                <filereports>WDF TestSuite.txt</filereports>
+              </configuration>
+              <executions>
+                <execution>
+                  <id>test</id>
+                  <goals>
+                    <goal>test</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>        </plugins>
+                </build>
+            </project>
