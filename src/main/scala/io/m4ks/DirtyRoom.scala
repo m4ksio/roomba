@@ -3,7 +3,10 @@
  */
 package io.m4ks
 
-class DirtyRoom(width: Int, height:Int, dirtPiles:List[DirtPile]) extends Room(width, height) {
+import io.m4ks.data.{Position, DirtPile}
+import io.m4ks.interface.IDirtyRoom
+
+class DirtyRoom(width: Int, height:Int, dirtPiles:List[DirtPile]) extends RectangleRoom(width, height) with IDirtyRoom {
 
   private val dirtsMap = scala.collection.mutable.HashMap[Position, DirtPile]()
 

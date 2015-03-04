@@ -1,11 +1,12 @@
 package io.m4ks
 
+import io.m4ks.data.{Position, Direction}
 import org.scalatest.{FlatSpec, Matchers}
 
 /**
  * Created by m4ks on 03/03/15.
  */
-class PositionTest extends FlatSpec with Matchers {
+class PositionSpec extends FlatSpec with Matchers {
 
   "Position" should "increase Y for North direction" in {
     Position(0, 0).inDirection(Direction.N) shouldBe Position(0, 1)
